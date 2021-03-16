@@ -1,0 +1,173 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.victory</groupId>
+    <artifactId>scrapy4j-all</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+
+    <name>scrapy4j-all</name>
+    <description>scrapy4j数据采集工具</description>
+    <url>http://www.zdvictory.com</url>
+    <organization>
+        <name>中大凯旋</name>
+        <url>http://www.zdvictory.com</url>
+    </organization>
+
+    <modules>
+        <module>core</module>
+        <module>xxljob</module>
+    </modules>
+
+    <properties>
+        <lion.parent.version>2.3.2-SNAPSHOT</lion.parent.version>
+        <!-- 公司Maven私服地址 -->
+        <nexus.url>http://nexus.zdvictory.com/repository</nexus.url>
+        <!-- 公司GIT服务器地址 -->
+        <git.url>http://gitlab.zdvictory.com</git.url>
+        <git.project.url>${git.url}/lion/lion-parent.git</git.project.url>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <maven.compiler.encoding>UTF-8</maven.compiler.encoding>
+        <maven.archetype.version>3.1.2</maven.archetype.version>
+        <java.version>1.8</java.version>
+        <!-- 解决pom.xml第一行报Unknown error问题 -->
+        <maven-jar-plugin.version>3.1.1</maven-jar-plugin.version>
+
+        <!--  依赖包版本 -->
+        <spring-context.version>5.2.2.RELEASE</spring-context.version>
+        <fastjson.version>1.2.58</fastjson.version>
+        <commons-lang3.version>3.7</commons-lang3.version>
+        <slf4j-api.version>1.7.29</slf4j-api.version>
+        <hutool-all.version>5.4.2</hutool-all.version>
+        <mybatis.version>3.5.4</mybatis.version>
+        <mybatis-spring.version>2.0.4</mybatis-spring.version>
+        <jsqlparser.version>2.0</jsqlparser.version>
+        <feign-core.version>10.4.0</feign-core.version>
+
+    </properties>
+    <dependencies>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+        </dependency>
+    </dependencies>
+
+    <!-- 依赖版本管理 -->
+    <dependencyManagement>
+        <dependencies>
+            <!-- spring -->
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-context</artifactId>
+                <version>${spring-context.version}</version>
+            </dependency>
+            <!-- fastjson -->
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>fastjson</artifactId>
+                <version>${fastjson.version}</version>
+            </dependency>
+            <!-- commons-lang3 -->
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-lang3</artifactId>
+                <version>${commons-lang3.version}</version>
+            </dependency>
+            <!-- slf4j -->
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-api</artifactId>
+                <version>${slf4j-api.version}</version>
+            </dependency>
+            <!-- hutool -->
+            <dependency>
+                <groupId>cn.hutool</groupId>
+                <artifactId>hutool-all</artifactId>
+                <version>${hutool-all.version}</version>
+            </dependency>
+            <!-- mybatis -->
+            <dependency>
+                <groupId>org.mybatis</groupId>
+                <artifactId>mybatis</artifactId>
+                <version>${mybatis.version}</version>
+            </dependency>
+            <!-- mybatis-spring -->
+            <dependency>
+                <groupId>org.mybatis</groupId>
+                <artifactId>mybatis-spring</artifactId>
+                <version>${mybatis-spring.version}</version>
+            </dependency>
+            <!-- jsqlparser -->
+            <dependency>
+                <groupId>com.github.jsqlparser</groupId>
+                <artifactId>jsqlparser</artifactId>
+                <version>${jsqlparser.version}</version>
+            </dependency>
+            <!-- fegin -->
+            <dependency>
+                <groupId>io.github.openfeign</groupId>
+                <artifactId>feign-core</artifactId>
+                <version>${feign-core.version}</version>
+            </dependency>
+            <!-- fegin-slf4j -->
+            <dependency>
+                <groupId>io.github.openfeign</groupId>
+                <artifactId>feign-slf4j</artifactId>
+                <version>${feign-core.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <distributionManagement>
+        <repository>
+            <id>deploymentRepo</id>
+            <name>Releases</name>
+            <url>${nexus.url}/maven-releases</url>
+        </repository>
+        <snapshotRepository>
+            <id>deploymentRepo</id>
+            <name>Snapshot</name>
+            <url>${nexus.url}/maven-snapshots</url>
+        </snapshotRepository>
+    </distributionManagement>
+
+    <!-- 发布版本需要的源码库地址 -->
+    <scm>
+        <url>${git.project.url}</url>
+        <connection>scm:git:${git.project.url}</connection>
+        <developerConnection>scm:git:${git.project.url}</developerConnection>
+        <tag>HEAD</tag>
+    </scm>
+
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.1</version>
+                <configuration>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                </configuration>
+            </plugin>
+            <!-- 发布 mvn:release 插件 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-release-plugin</artifactId>
+                <version>3.0.0-M1</version>
+                <configuration>
+                    <!--git用户名-->
+                    <username>test</username>
+                    <!--git密码-->
+                    <password>Zdkx#2020</password>
+                    <connectionUrl>scm:git:${git.project.url}</connectionUrl>
+                    <autoVersionSubmodules>true</autoVersionSubmodules>
+                    <updateBranchVersions>true</updateBranchVersions>
+                    <updateWorkingCopyVersions>true</updateWorkingCopyVersions>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>
