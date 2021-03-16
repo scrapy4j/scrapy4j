@@ -1,0 +1,35 @@
+### Macbook ###
+.DS_Store
+
+### nodejs ###
+node_modules/
+npm-debug.log
+yarn-error.log
+yarn.lock
+package-lock.json
+
+### idea ###
+.idea/
+*.iml
+
+### Eclipse ###
+.settings
+.classpath
+
+### logs ###
+logs
+
+### Compiled ###
+bin/
+*.class
+target/
+dist/
+
+### Package ###
+target
+*.jar
+*.war
+*.ear
+*.zip
+*.tar.gz
+*.rar
