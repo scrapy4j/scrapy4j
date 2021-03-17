@@ -1,8 +1,7 @@
 package com.victory.scrapy4j.core.support.mybatis.core.metadata;
 
 import cn.hutool.core.lang.Assert;
-import com.victory.scrapy4j.core.support.mybatis.annotation.IdType;
-import com.victory.scrapy4j.core.support.mybatis.annotation.KeySequence;
+import com.victory.scrapy4j.core.support.mybatis.core.enums.IdType;
 import com.victory.scrapy4j.core.support.mybatis.toolkit.Constants;
 import com.victory.scrapy4j.core.support.mybatis.toolkit.StringUtils;
 import com.victory.scrapy4j.core.support.mybatis.toolkit.SqlScriptUtils;
@@ -45,10 +44,6 @@ public class TableInfo implements Constants {
      * 表主键ID 属性类型
      */
     private Class<?> keyType;
-    /**
-     * 表主键ID Sequence
-     */
-    private KeySequence keySequence;
     /**
      * 表字段信息列表
      */

@@ -1,4 +1,4 @@
-package com.victory.scrapy4j.core.support.mybatis.annotation;
+package com.victory.scrapy4j.core.support.mybatis.core.metadata;
 
 public class SqlCondition {
     public static final String EQUAL = "%s=#{%s}";

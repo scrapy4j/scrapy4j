@@ -1,8 +1,7 @@
 package com.victory.scrapy4j.core.support.mybatis.core.metadata;
 
-import com.victory.scrapy4j.core.support.mybatis.annotation.FieldFill;
-import com.victory.scrapy4j.core.support.mybatis.annotation.FieldStrategy;
-import com.victory.scrapy4j.core.support.mybatis.annotation.SqlCondition;
+import com.victory.scrapy4j.core.support.mybatis.core.enums.FieldFill;
+import com.victory.scrapy4j.core.support.mybatis.core.enums.FieldStrategy;
 import com.victory.scrapy4j.core.support.mybatis.toolkit.Constants;
 import com.victory.scrapy4j.core.support.mybatis.toolkit.StringUtils;
 import com.victory.scrapy4j.core.support.mybatis.toolkit.SqlScriptUtils;

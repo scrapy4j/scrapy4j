@@ -2,7 +2,7 @@ package com.victory.scrapy4j.core.support.mybatis.method;
 
 import com.victory.scrapy4j.core.support.mybatis.core.enums.SqlMethod;
 import com.victory.scrapy4j.core.support.mybatis.core.metadata.TableInfo;
-import com.victory.scrapy4j.core.support.mybatis.annotation.IdType;
+import com.victory.scrapy4j.core.support.mybatis.core.enums.IdType;
 import com.victory.scrapy4j.core.support.mybatis.toolkit.StringUtils;
 import com.victory.scrapy4j.core.support.mybatis.toolkit.SqlScriptUtils;
 import org.apache.ibatis.executor.keygen.Jdbc3KeyGenerator;

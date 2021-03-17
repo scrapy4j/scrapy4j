@@ -1,8 +1,8 @@
 package com.victory.scrapy4j.xxljob.support.parser;
 
 import cn.hutool.core.lang.Assert;
-import com.victory.scrapy4j.core.support.mybatis.annotation.FieldStrategy;
-import com.victory.scrapy4j.core.support.mybatis.annotation.IdType;
+import com.victory.scrapy4j.core.support.mybatis.core.enums.FieldStrategy;
+import com.victory.scrapy4j.core.support.mybatis.core.enums.IdType;
 import com.victory.scrapy4j.xxljob.support.parser.transformstrategy.NoneTransformStrategy;
 import com.victory.scrapy4j.xxljob.support.parser.transformstrategy.TransformStrategy;
 import org.apache.commons.lang3.StringUtils;
