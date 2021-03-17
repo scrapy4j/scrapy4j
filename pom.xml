@@ -20,16 +20,14 @@
     </modules>
 
     <properties>
-        <lion.parent.version>2.3.2-SNAPSHOT</lion.parent.version>
         <!-- 公司Maven私服地址 -->
         <nexus.url>http://nexus.zdvictory.com/repository</nexus.url>
         <!-- 公司GIT服务器地址 -->
         <git.url>http://gitlab.zdvictory.com</git.url>
-        <git.project.url>${git.url}/lion/lion-parent.git</git.project.url>
+        <git.project.url>${git.url}/egb/scrapy4j-all.git</git.project.url>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <maven.compiler.encoding>UTF-8</maven.compiler.encoding>
-        <maven.archetype.version>3.1.2</maven.archetype.version>
         <java.version>1.8</java.version>
         <!-- 解决pom.xml第一行报Unknown error问题 -->
         <maven-jar-plugin.version>3.1.1</maven-jar-plugin.version>
