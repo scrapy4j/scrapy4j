@@ -4,7 +4,6 @@ import com.alibaba.fastjson.JSONObject;
 import com.victory.scrapy4j.core.component.scheduler.Scheduler;
 import com.victory.scrapy4j.core.support.feign.*;
 import com.victory.scrapy4j.core.utils.Utils;
-import com.zdkx.scrapy4j.core.support.feign.*;
 import feign.*;
 import feign.codec.Decoder;
 import feign.codec.Encoder;

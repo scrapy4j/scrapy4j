@@ -1,7 +1,7 @@
 package com.victory.scrapy4j.core.support.mybatis.core.injector;
 
 import com.victory.scrapy4j.core.support.mybatis.method.*;
-import com.zdkx.scrapy4j.core.support.mybatis.method.*;
+import com.victory.scrapy4j.core.support.mybatis.method.*;
 import net.sf.jsqlparser.statement.update.Update;
 import org.apache.ibatis.builder.MapperBuilderAssistant;
 
