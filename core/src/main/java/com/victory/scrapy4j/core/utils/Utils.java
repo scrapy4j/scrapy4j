@@ -2,7 +2,7 @@ package com.victory.scrapy4j.core.utils;
 
 
 import cn.hutool.core.bean.BeanUtil;
-import com.victory.scrapy4j.core.component.resolver.IFunctionResolver;
+import com.victory.scrapy4j.core.component.resolver.FunctionResolver;
 import com.victory.scrapy4j.core.support.mybatis.toolkit.ExceptionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.ibatis.scripting.xmltags.OgnlCache;
@@ -138,8 +138,8 @@ public class Utils {
                             //对应的值如果是Function 或者 IFunctionResolver 则直接先执行再取值
                             if (targetMap.get(posKey) instanceof Function) {
                                 targetMap.put(posKey, ((Function<Object, String>) targetMap.get(posKey)).apply(targetMap));
-                            } else if (targetMap.get(posKey) instanceof IFunctionResolver) {
-                                targetMap.put(posKey, ((IFunctionResolver) targetMap.get(posKey)).resolve(targetMap).apply(targetMap));
+                            } else if (targetMap.get(posKey) instanceof FunctionResolver) {
+                                targetMap.put(posKey, ((FunctionResolver) targetMap.get(posKey)).resolve(targetMap).apply(targetMap));
                             }
                         }
                         if (targetMap.get(posKey) != null) {
@@ -155,8 +155,8 @@ public class Utils {
                 Object value = targetMap.get(key);
                 if (value instanceof Function) {
                     targetMap.put(key, ((Function<Object, String>) value).apply(targetMap));
-                } else if (value instanceof IFunctionResolver) {
-                    targetMap.put(key, ((IFunctionResolver) value).resolve(targetMap).apply(targetMap));
+                } else if (value instanceof FunctionResolver) {
+                    targetMap.put(key, ((FunctionResolver) value).resolve(targetMap).apply(targetMap));
                 }
             }
         }

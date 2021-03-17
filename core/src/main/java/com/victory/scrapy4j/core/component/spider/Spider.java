@@ -3,7 +3,7 @@ package com.victory.scrapy4j.core.component.spider;
 import com.victory.scrapy4j.core.component.pojo.Request;
 import com.victory.scrapy4j.core.component.pojo.Settings;
 import com.victory.scrapy4j.core.component.itempipeline.ItemPipeline;
-import com.victory.scrapy4j.core.component.parser.IParser;
+import com.victory.scrapy4j.core.component.parser.Parser;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +20,7 @@ public class Spider {
     private final StartRequests startRequests;
     private final List<String> startUrls;
     private final List<ItemPipeline> itemPipelines;
-    private final IParser parser;
+    private final Parser parser;
     private final Settings settings;
 
     private Spider(SpiderBuilder spiderBuilder) {
@@ -56,7 +56,7 @@ public class Spider {
         return itemPipelines;
     }
 
-    public IParser getParser() {
+    public Parser getParser() {
         return parser;
     }
 
@@ -68,7 +68,7 @@ public class Spider {
         private StartRequests startRequests = new StartRequests();
         private List<String> startUrls;
         private List<ItemPipeline> itemPipelines;
-        private IParser parser;
+        private Parser parser;
         private Settings settings;
 
         public SpiderBuilder() {
@@ -108,7 +108,7 @@ public class Spider {
         }
 
 
-        public SpiderBuilder parser(IParser parser) {
+        public SpiderBuilder parser(Parser parser) {
             this.parser = parser;
             return this;
         }

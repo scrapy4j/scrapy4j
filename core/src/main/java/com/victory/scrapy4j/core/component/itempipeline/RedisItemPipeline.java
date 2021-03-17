@@ -9,6 +9,7 @@ import com.victory.scrapy4j.core.support.redis.toolkit.RedisOperator;
 import com.victory.scrapy4j.core.support.redis.toolkit.RedisOperatorFactory;
 import com.victory.scrapy4j.core.support.redis.toolkit.RedisService;
 import com.victory.scrapy4j.core.utils.Utils;
+import org.springframework.data.redis.core.RedisTemplate;
 
 import java.util.List;
 
@@ -16,8 +17,8 @@ public class RedisItemPipeline implements ItemPipeline<RedisData> {
 
     private RedisService redisService;
 
-    public RedisItemPipeline(RedisService redisService) {
-        this.redisService = redisService;
+    public RedisItemPipeline(RedisTemplate<String, String> redisTemplate) {
+        this.redisService = new RedisService(redisTemplate);
     }
 
     @Override

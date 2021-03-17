@@ -2,7 +2,6 @@ package com.victory.scrapy4j.xxljob.support;
 
 import com.victory.scrapy4j.core.component.itempipeline.RDBItemPipeline;
 import com.victory.scrapy4j.core.component.itempipeline.RedisItemPipeline;
-import com.victory.scrapy4j.core.component.parser.IParser;
 import com.victory.scrapy4j.core.component.spider.SqlStartRequests;
 import com.victory.scrapy4j.core.component.spider.StartRequests;
 import com.victory.scrapy4j.xxljob.support.parser.JSONProperty2ItemParser;
@@ -52,7 +51,7 @@ public class Registry {
 
     private final Map<String, Class<? extends com.victory.scrapy4j.core.component.itempipeline.ItemPipeline>> itemPipelineMap = new HashMap<>();
 
-    private final Map<String, Class<? extends IParser>> parserMap = new HashMap<>();
+    private final Map<String, Class<? extends com.victory.scrapy4j.core.component.parser.Parser>> parserMap = new HashMap<>();
 
     private final Map<String, Class<? extends ItemDefinition>> itemDefinitionMap = new HashMap<>();
 
@@ -73,8 +72,8 @@ public class Registry {
         registerItemPipeline(ItemPipeline.RDB_ITEM_PIPELINE, RDBItemPipeline.class);
         registerItemPipeline(ItemPipeline.REDIS_ITEM_PIPELINE, RedisItemPipeline.class);
 
-        registerParser(Parser.JSON_2_RDB_PARSER, JSONPropertyRDBItemParser.class);
-        registerParser(Parser.JSON_2_ITEM_PARSER, JSONProperty2ItemParser.class);
+        registerParser(Registry.Parser.JSON_2_RDB_PARSER, JSONPropertyRDBItemParser.class);
+        registerParser(Registry.Parser.JSON_2_ITEM_PARSER, JSONProperty2ItemParser.class);
 
         registerItemDefinition(Item.RDB_ITEM, RDBItemDefinition.class);
         registerItemDefinition(Item.REDIS_ITEM, RedisItemDefinition.class);
@@ -101,11 +100,11 @@ public class Registry {
         return itemPipelineMap.get(alias);
     }
 
-    public void registerParser(String alias, Class<? extends IParser> parser) {
+    public void registerParser(String alias, Class<? extends com.victory.scrapy4j.core.component.parser.Parser> parser) {
         parserMap.put(alias, parser);
     }
 
-    public Class<? extends IParser> getParser(String alias) {
+    public Class<? extends com.victory.scrapy4j.core.component.parser.Parser> getParser(String alias) {
         return parserMap.get(alias);
     }
 

@@ -3,9 +3,10 @@ package com.victory.scrapy4j.xxljob.support;
 import com.victory.scrapy4j.core.component.Crawler;
 import com.victory.scrapy4j.core.component.itempipeline.RDBItemPipeline;
 import com.victory.scrapy4j.core.component.itempipeline.RedisItemPipeline;
-import com.victory.scrapy4j.core.component.parser.IParser;
+import com.victory.scrapy4j.core.component.parser.Parser;
 import com.victory.scrapy4j.core.component.pojo.Request;
 import com.victory.scrapy4j.core.component.pojo.StartSql;
+import com.victory.scrapy4j.core.component.resolver.MapResolver;
 import com.victory.scrapy4j.core.component.spider.Spider;
 import com.victory.scrapy4j.core.component.spider.SqlStartRequests;
 import com.victory.scrapy4j.core.component.spider.StartRequests;
@@ -17,7 +18,6 @@ import com.victory.scrapy4j.xxljob.support.parser.JSONProperty2ItemParser;
 import com.victory.scrapy4j.xxljob.support.parser.JSONPropertyRDBItemParser;
 import com.victory.scrapy4j.xxljob.support.parser.itemdefinition.RDBItemDefinition;
 import com.victory.scrapy4j.xxljob.support.parser.itemdefinition.RedisItemDefinition;
-import com.victory.scrapy4j.xxljob.support.resolver.IMapResolver;
 import com.victory.scrapy4j.xxljob.support.definition.CrawlerDefinition;
 import com.victory.scrapy4j.xxljob.support.parser.JSONPropertyMapper;
 import com.victory.scrapy4j.xxljob.support.parser.transformstrategy.TransformStrategy;
@@ -56,9 +56,9 @@ public class Configuration {
                 .methodInvoke("headers", new String[]{"headers"}, new Class[]{Map.class})
                 .methodInvoke("queries", new String[]{"queries"}, new Class[]{Map.class})
                 .methodInvoke("variables", new String[]{"variables"}, new Class[]{Map.class})
-                .methodInvoke("headersResolver", new String[]{"headersResolver"}, new Class[]{IMapResolver.class})
-                .methodInvoke("queriesResolver", new String[]{"queriesResolver"}, new Class[]{IMapResolver.class})
-                .methodInvoke("variablesResolver", new String[]{"variablesResolver"}, new Class[]{IMapResolver.class})
+                .methodInvoke("headersResolver", new String[]{"headersResolver"}, new Class[]{MapResolver.class})
+                .methodInvoke("queriesResolver", new String[]{"queriesResolver"}, new Class[]{MapResolver.class})
+                .methodInvoke("variablesResolver", new String[]{"variablesResolver"}, new Class[]{MapResolver.class})
                 .methodInvoke("requestBody", new String[]{"body"}, new Class[]{Object.class});
 
         //propertyMappings
@@ -131,7 +131,7 @@ public class Configuration {
                         .methodInvoke(CONSTRUCTOR, new String[]{"propertyMappings", "tableName"}, new Class<?>[]{List.class, String.class})
                         .methodInvoke("interceptors", new String[]{"interceptors"}, new Class<?>[]{List.class})
                         .methodInvoke(BUILD, null, null)))
-                .methodInvoke("parser", new String[]{"parser"}, new Class[]{IParser.class})
+                .methodInvoke("parser", new String[]{"parser"}, new Class[]{Parser.class})
                 .methodInvoke(BUILD, null, null);
     }
 

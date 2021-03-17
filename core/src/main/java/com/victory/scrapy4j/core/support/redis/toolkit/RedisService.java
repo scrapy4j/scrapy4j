@@ -1,24 +1,17 @@
 package com.victory.scrapy4j.core.support.redis.toolkit;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.concurrent.TimeUnit;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.RedisSerializer;
-import org.springframework.stereotype.Component;
 
-@Component("redisService")
+import java.util.*;
+import java.util.concurrent.TimeUnit;
+
 public class RedisService implements RedisClient {
-    @Autowired
+
     RedisTemplate<String, String> redisTemplate;
 
-    public RedisService() {
+    public RedisService(RedisTemplate<String, String> redisTemplate) {
+        this.redisTemplate = redisTemplate;
     }
 
     public Long hlen(String key) {

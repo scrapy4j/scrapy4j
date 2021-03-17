@@ -2,7 +2,7 @@ package com.victory.scrapy4j.xxljob.support.parser;
 
 import com.victory.scrapy4j.core.component.item.Item;
 import com.victory.scrapy4j.core.component.item.RDBItem;
-import com.victory.scrapy4j.core.component.parser.IParser;
+import com.victory.scrapy4j.core.component.parser.Parser;
 import com.victory.scrapy4j.core.component.pojo.Response;
 import com.victory.scrapy4j.core.component.pojo.Result;
 import com.victory.scrapy4j.core.support.mybatis.core.enums.SqlMethod;
@@ -23,7 +23,7 @@ import java.util.stream.Collectors;
  * JSON格式数据解析处理类
  */
 @Deprecated
-public class JSONPropertyRDBItemParser implements IParser {
+public class JSONPropertyRDBItemParser implements Parser {
 
     private final String tableName;
     private final List<JSONPropertyMapper> propertyMappings;

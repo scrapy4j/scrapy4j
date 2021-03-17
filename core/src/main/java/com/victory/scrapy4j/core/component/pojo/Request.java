@@ -1,9 +1,13 @@
 package com.victory.scrapy4j.core.component.pojo;
 
-import com.victory.scrapy4j.core.component.parser.IParser;
-import com.victory.scrapy4j.core.component.resolver.IMapResolver;
+import cn.hutool.core.lang.Assert;
+import com.victory.scrapy4j.core.component.downloader.middleware.FeignDownloaderMiddleware;
+import com.victory.scrapy4j.core.component.parser.Parser;
+import com.victory.scrapy4j.core.component.resolver.MapResolver;
 import com.victory.scrapy4j.core.component.spider.IRequestBody;
 import com.victory.scrapy4j.core.component.spider.Spider;
+import com.victory.scrapy4j.core.support.feign.FeignSettings;
+import com.victory.scrapy4j.core.utils.Utils;
 
 import java.io.Serializable;
 import java.util.LinkedHashMap;
@@ -13,7 +17,7 @@ import java.util.function.Function;
 public class Request implements Serializable {
     private Spider spider;
     private Settings settings;
-    private IParser parser;
+    private Parser parser;
     private String url;
     private Map<String, Object> headers;
     private Map<String, Object> queries;
@@ -22,9 +26,9 @@ public class Request implements Serializable {
     private Map<String, Object> variables;
     //经过处理后的variables
     private Map<String, Object> resolvedVariables;
-    private IMapResolver headersResolver;
-    private IMapResolver queriesResolver;
-    private IMapResolver variablesResolver;
+    private MapResolver headersResolver;
+    private MapResolver queriesResolver;
+    private MapResolver variablesResolver;
 
     public Request() {
     }
@@ -74,7 +78,7 @@ public class Request implements Serializable {
         this.settings = settings;
     }
 
-    public void setParser(IParser parser) {
+    public void setParser(Parser parser) {
         this.parser = parser;
     }
 
@@ -86,7 +90,7 @@ public class Request implements Serializable {
         return settings;
     }
 
-    public IParser getParser() {
+    public Parser getParser() {
         return parser;
     }
 
@@ -145,18 +149,33 @@ public class Request implements Serializable {
         this.resolvedVariables = resolvedVariables;
     }
 
+    public Response send() {
+        Assert.isNull(settings, "请求配置缺失");
+        Response res = new Response();
+        try {
+            if (this.getSettings() instanceof FeignSettings) {
+                res = new FeignDownloaderMiddleware(this, (FeignSettings) this.getSettings()).download();
+            } else {
+                throw new Exception("FeignSettings required");
+            }
+        } catch (Exception ex) {
+            Utils.logError(this.getSettings().getLogger(this.getClass()), String.format("download error:%s %s", this.getUrl(), ex.getMessage()), ex);
+        }
+        return res;
+    }
+
     public static class RequestBuilder<T extends RequestBuilder> {
         private String url;
         private feign.Request.HttpMethod httpMethod;
         private Map<String, Object> headers;
         private Map<String, Object> queries;
         private Map<String, Object> variables;
-        private IMapResolver headersResolver;
-        private IMapResolver queriesResolver;
-        private IMapResolver variablesResolver;
+        private MapResolver headersResolver;
+        private MapResolver queriesResolver;
+        private MapResolver variablesResolver;
         private IRequestBody requestBody;
         private Settings settings;
-        private IParser parser;
+        private Parser parser;
         private Spider spider;
 
         public RequestBuilder(String url, feign.Request.HttpMethod httpMethod) {
@@ -188,7 +207,7 @@ public class Request implements Serializable {
             return (T) this;
         }
 
-        public T parser(IParser parser) {
+        public T parser(Parser parser) {
             this.parser = parser;
             return (T) this;
         }
@@ -290,17 +309,17 @@ public class Request implements Serializable {
             return (T) this;
         }
 
-        public T headersResolver(IMapResolver headersResolver) {
+        public T headersResolver(MapResolver headersResolver) {
             this.headersResolver = headersResolver;
             return (T) this;
         }
 
-        public T queriesResolver(IMapResolver queriesResolver) {
+        public T queriesResolver(MapResolver queriesResolver) {
             this.queriesResolver = queriesResolver;
             return (T) this;
         }
 
-        public T variablesResolver(IMapResolver variablesResolver) {
+        public T variablesResolver(MapResolver variablesResolver) {
             this.variablesResolver = variablesResolver;
             return (T) this;
         }

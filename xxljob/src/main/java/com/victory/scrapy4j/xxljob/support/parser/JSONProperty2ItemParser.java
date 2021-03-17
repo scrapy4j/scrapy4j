@@ -1,6 +1,6 @@
 package com.victory.scrapy4j.xxljob.support.parser;
 
-import com.victory.scrapy4j.core.component.parser.IParser;
+import com.victory.scrapy4j.core.component.parser.Parser;
 import com.victory.scrapy4j.core.component.pojo.Response;
 import com.victory.scrapy4j.core.component.pojo.Result;
 import com.victory.scrapy4j.core.utils.Utils;
@@ -10,7 +10,7 @@ import com.victory.scrapy4j.xxljob.support.parser.itemdefinition.ItemDefinition;
 
 import java.util.List;
 
-public class JSONProperty2ItemParser implements IParser {
+public class JSONProperty2ItemParser implements Parser {
 
     List<ItemDefinition> itemDefinitions;
 

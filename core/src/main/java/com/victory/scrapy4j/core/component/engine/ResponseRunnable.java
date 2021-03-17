@@ -1,7 +1,7 @@
 package com.victory.scrapy4j.core.component.engine;
 
 
-import com.victory.scrapy4j.core.component.parser.IParser;
+import com.victory.scrapy4j.core.component.parser.Parser;
 import com.victory.scrapy4j.core.component.pojo.Response;
 import com.victory.scrapy4j.core.component.pojo.Result;
 import com.victory.scrapy4j.core.component.spider.Spider;
@@ -27,7 +27,7 @@ public class ResponseRunnable implements Runnable {
     @Override
     public void run() {
         try {
-            IParser parser = response.getRequest().getParser();
+            Parser parser = response.getRequest().getParser();
             Result result = new Result();
             if (parser != null) {
                 result = parser.parse(response);
