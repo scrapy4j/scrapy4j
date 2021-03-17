@@ -44,14 +44,7 @@
         <mybatis-spring.version>2.0.4</mybatis-spring.version>
         <jsqlparser.version>2.0</jsqlparser.version>
         <feign-core.version>10.4.0</feign-core.version>
-
     </properties>
-    <dependencies>
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-        </dependency>
-    </dependencies>
 
     <!-- 依赖版本管理 -->
     <dependencyManagement>
