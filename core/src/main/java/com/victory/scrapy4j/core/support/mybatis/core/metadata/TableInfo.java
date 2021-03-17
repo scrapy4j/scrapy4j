@@ -3,7 +3,6 @@ package com.victory.scrapy4j.core.support.mybatis.core.metadata;
 import cn.hutool.core.lang.Assert;
 import com.victory.scrapy4j.core.support.mybatis.annotation.IdType;
 import com.victory.scrapy4j.core.support.mybatis.annotation.KeySequence;
-import com.victory.scrapy4j.core.support.mybatis.core.MybatisConfiguration;
 import com.victory.scrapy4j.core.support.mybatis.toolkit.Constants;
 import com.victory.scrapy4j.core.support.mybatis.toolkit.StringUtils;
 import com.victory.scrapy4j.core.support.mybatis.toolkit.SqlScriptUtils;
@@ -59,9 +58,9 @@ public class TableInfo implements Constants {
      */
     private String currentNamespace;
     /**
-     * MybatisConfiguration 标记 (Configuration内存地址值)
+     * Configuration 标记 (Configuration内存地址值)
      */
-    private MybatisConfiguration configuration;
+    private Configuration configuration;
 
     private String allSqlSelect;
     private String sqlSelect;
@@ -106,7 +105,7 @@ public class TableInfo implements Constants {
      */
     void setConfiguration(Configuration configuration) {
         Assert.notNull(configuration, "Error: You need Initialize MybatisConfiguration !");
-        this.configuration = (MybatisConfiguration) configuration;
+        this.configuration = configuration;
         this.underCamel = configuration.isMapUnderscoreToCamelCase();
     }
 
@@ -301,7 +300,7 @@ public class TableInfo implements Constants {
         this.keyColumn = keyColumn;
     }
 
-    public MybatisConfiguration getConfiguration() {
+    public Configuration getConfiguration() {
         return this.configuration;
     }
 }

@@ -1,6 +1,5 @@
 package com.victory.scrapy4j.core.support.mybatis.toolkit;
 
-
 import com.victory.scrapy4j.core.support.mybatis.core.injector.ISqlInjector;
 import com.victory.scrapy4j.core.support.mybatis.core.metadata.TableInfo;
 import com.victory.scrapy4j.core.support.mybatis.method.AbstractMethod;
@@ -28,7 +27,7 @@ public class DynamicSqlInjector implements ISqlInjector {
         MapperBuilderAssistant builderAssistant = new MapperBuilderAssistant(configuration, resource);
         builderAssistant.setCurrentNamespace(mapperName);
         Class<?> modelClass = Object.class;
-        Set<String> mapperRegistryCache = GlobalConfigUtils.getMapperRegistryCache(builderAssistant.getConfiguration());
+        Set<String> mapperRegistryCache = GlobalConfigUtils.getMapperRegistryCache();
         if (!mapperRegistryCache.contains(mapperName)) {
             List<AbstractMethod> methodList = this.getMethodList();
             if (CollectionUtils.isNotEmpty(methodList)) {
