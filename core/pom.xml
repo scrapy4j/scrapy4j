@@ -67,10 +67,11 @@
             <groupId>io.github.openfeign</groupId>
             <artifactId>feign-slf4j</artifactId>
         </dependency>
-        <!-- redis -->
+        <!-- Redis 只作编译用途，为了作redis自动配置 -->
         <dependency>
             <groupId>org.springframework.data</groupId>
             <artifactId>spring-data-redis</artifactId>
+            <scope>provided</scope>
         </dependency>
 
     </dependencies>
