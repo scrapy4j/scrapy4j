@@ -5,7 +5,10 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.scrapy4j.core.support.mybatis.core.enums.SqlMethod;
+import org.scrapy4j.core.support.mybatis.core.metadata.TableInfo;
 import org.scrapy4j.core.support.mybatis.method.AbstractMethod;
+import org.scrapy4j.core.support.mybatis.method.RawSqlSelectList;
+import org.scrapy4j.core.support.mybatis.toolkit.DynamicSqlInjector;
 import org.scrapy4j.core.support.mybatis.toolkit.SqlUtils;
 import org.scrapy4j.xxljob.parser.JSONPropertyMapper;
 
@@ -23,10 +26,14 @@ public class SqlTransformStrategy implements TransformStrategy {
 
     private SqlSessionFactory sqlSessionFactory;
 
+    private SqlSessionTemplate sqlSessionTemplate;
+
     private String sql;
 
     public void setSqlSessionFactory(SqlSessionFactory sqlSessionFactory) {
         this.sqlSessionFactory = sqlSessionFactory;
+        this.sqlSessionTemplate = new SqlSessionTemplate(sqlSessionFactory);
+        new DynamicSqlInjector(new RawSqlSelectList()).inspectInject(sqlSessionTemplate.getConfiguration(), new TableInfo(TABLE_NAME));
     }
 
     public void setSql(String sql) {
@@ -37,8 +44,9 @@ public class SqlTransformStrategy implements TransformStrategy {
     public Object exec(Object propertyValue, List<JSONPropertyMapper> currentRow, List<List<JSONPropertyMapper>> allRows) {
         if (currentRow != null && currentRow.size() > 0) {
             Map<String, String> param = this.generateParam(currentRow);
-            Map<String, Object> data = new SqlSessionTemplate(sqlSessionFactory).selectOne(AbstractMethod.getStatementName(TABLE_NAME, SqlMethod.RAW_SQL_SELECT_LIST.getMethod()), param);
-            if (data != null && !data.isEmpty()) {
+            List<Map<String, Object>> dataList = sqlSessionTemplate.selectList(AbstractMethod.getStatementName(TABLE_NAME, SqlMethod.RAW_SQL_SELECT_LIST.getMethod()), param);
+            if (dataList != null && dataList.size() > 0) {
+                Map<String, Object> data = dataList.get(0);
                 propertyValue = data.values().stream().findFirst().get();
             }
         }

@@ -1,5 +1,7 @@
 package org.scrapy4j.xxljob.argument;
 
+import org.apache.commons.collections.MapUtils;
+import org.scrapy4j.core.utils.Utils;
 import org.scrapy4j.xxljob.Registry;
 import org.scrapy4j.xxljob.parser.transformstrategy.TransformStrategy;
 import org.springframework.beans.BeanUtils;
@@ -24,11 +26,16 @@ public class TransformStrategyNameArgsArgumentResolver extends NameArgsMapArgume
             if (transformStrategyArgs != null) {
                 BeanWrapper beanWrapper = new BeanWrapperImpl(transformStrategy);
                 for (String key : transformStrategyArgs.keySet()) {
-                    beanWrapper.setPropertyValue(key, transformStrategyArgs.get(key));
+                    String val = MapUtils.getString(transformStrategyArgs, key);
+                    if (Utils.isSPEL(val)) {
+                        beanWrapper.setPropertyValue(key, registry.getSharedObject(val));
+                    } else {
+                        beanWrapper.setPropertyValue(key, transformStrategyArgs.get(key));
+                    }
                 }
             }
         } else {
-            transformStrategy= (TransformStrategy) super.resolve(registry,map);
+            transformStrategy = (TransformStrategy) super.resolve(registry, map);
         }
         return transformStrategy;
     }
