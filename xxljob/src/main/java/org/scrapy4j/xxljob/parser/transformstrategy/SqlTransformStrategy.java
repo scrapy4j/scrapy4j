@@ -34,13 +34,12 @@ public class SqlTransformStrategy implements TransformStrategy {
 
     @Override
     public Object exec(Object propertyValue, List<JSONPropertyMapper> currentRow, List<List<JSONPropertyMapper>> allRows) {
-        if (propertyValue != null) {
+        if (currentRow != null && currentRow.size() > 0) {
             Map<String, String> param = this.generateParam(currentRow);
             Map<String, Object> data = sqlSessionTemplate.selectOne(AbstractMethod.getStatementName(TABLE_NAME, SqlMethod.RAW_SQL_SELECT_LIST.getMethod()), param);
             if (data != null && !data.isEmpty()) {
-                return data.values().stream().findFirst().get();
+                propertyValue = data.values().stream().findFirst().get();
             }
-            return propertyValue;
         }
         return propertyValue;
     }
