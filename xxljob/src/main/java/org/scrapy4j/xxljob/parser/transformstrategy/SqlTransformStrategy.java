@@ -2,6 +2,7 @@ package org.scrapy4j.xxljob.parser.transformstrategy;
 
 import org.apache.commons.collections.MapUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.scrapy4j.core.support.mybatis.core.enums.SqlMethod;
 import org.scrapy4j.core.support.mybatis.method.AbstractMethod;
@@ -20,12 +21,12 @@ public class SqlTransformStrategy implements TransformStrategy {
 
     private final static String ognlRegex = "#\\{([^\\}]*)\\}";
 
-    private SqlSessionTemplate sqlSessionTemplate;
+    private SqlSessionFactory sqlSessionFactory;
 
     private String sql;
 
-    public void setSqlSessionTemplate(SqlSessionTemplate sqlSessionTemplate) {
-        this.sqlSessionTemplate = sqlSessionTemplate;
+    public void setSqlSessionFactory(SqlSessionFactory sqlSessionFactory) {
+        this.sqlSessionFactory = sqlSessionFactory;
     }
 
     public void setSql(String sql) {
@@ -36,7 +37,7 @@ public class SqlTransformStrategy implements TransformStrategy {
     public Object exec(Object propertyValue, List<JSONPropertyMapper> currentRow, List<List<JSONPropertyMapper>> allRows) {
         if (currentRow != null && currentRow.size() > 0) {
             Map<String, String> param = this.generateParam(currentRow);
-            Map<String, Object> data = sqlSessionTemplate.selectOne(AbstractMethod.getStatementName(TABLE_NAME, SqlMethod.RAW_SQL_SELECT_LIST.getMethod()), param);
+            Map<String, Object> data = new SqlSessionTemplate(sqlSessionFactory).selectOne(AbstractMethod.getStatementName(TABLE_NAME, SqlMethod.RAW_SQL_SELECT_LIST.getMethod()), param);
             if (data != null && !data.isEmpty()) {
                 propertyValue = data.values().stream().findFirst().get();
             }
