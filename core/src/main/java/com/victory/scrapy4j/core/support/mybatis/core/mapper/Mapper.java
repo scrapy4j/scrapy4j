@@ -1,4 +1,0 @@
-package com.victory.scrapy4j.core.support.mybatis.core.mapper;
-
-public interface Mapper<T> {
-}
