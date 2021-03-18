@@ -14,7 +14,6 @@ import org.scrapy4j.xxljob.parser.transformstrategy.JSON2StringTransformStrategy
 import org.scrapy4j.xxljob.parser.transformstrategy.NoneTransformStrategy;
 import org.scrapy4j.xxljob.parser.transformstrategy.SqlTransformStrategy;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -58,12 +57,6 @@ public class Registry {
     private final Map<String, Class<? extends org.scrapy4j.xxljob.parser.transformstrategy.TransformStrategy>> transformStrategyMap = new HashMap<>();
 
     protected final Map<String, Object> sharedObjectMap = new HashMap<>();
-
-//    private final Map<String, Function<Object, String>> functionMap = new ConcurrentHashMap<>();
-
-//    private final Map<String, BiConsumer<Response, Result>> pageCallbackMap = new ConcurrentHashMap<>();
-//
-//    private final Map<String, Predicate<Response>> parserPredicateMap = new ConcurrentHashMap<>();
 
     public Registry() {
         registerStartRequests(Requests.SIMPLE_START_REQUESTS, StartRequests.class);
@@ -125,62 +118,10 @@ public class Registry {
     }
 
     public void registerSharedObject(String alias, Object sharedObject) {
-//        if (sharedObjectMap.get(alias) != null) {
-//            Object existVal = sharedObjectMap.get(alias);
-//            if (existVal instanceof InnerList) {//继续使用inner list
-//                InnerList<Object> existList = (InnerList<Object>) existVal;
-//                existList.add(sharedObject);
-//                sharedObject = existList;
-//            } else {//多条记录时初始化inner list，为了解决spring bean是多例的情况，取值时对应多例
-//                InnerList<Object> valList = new InnerList<>();
-//                valList.add(existVal);
-//                valList.add(sharedObject);
-//                sharedObject = valList;
-//            }
-//        }
         sharedObjectMap.put(alias, sharedObject);
     }
 
     public Object getSharedObject(String alias) {
-//        Object res = null;
-//        Object existVal = sharedObjectMap.get(alias);
-//        if (existVal instanceof InnerList) {
-//            InnerList<Object> existList = (InnerList<Object>) existVal;
-//            if (existList.size() > 0) {
-//                res = existList.get(0);
-//                existList.remove(0);
-//            }
-//        } else {
-//            res = sharedObjectMap.get(alias);
-//        }
         return sharedObjectMap.get(alias);
-    }
-
-//    public void registerSharedFunction(String alias, Function<Object, String> function) {
-//        functionMap.put(alias, function);
-//    }
-
-//    public void registerSharedPageCallback(String alias, BiConsumer<Response, Result> pageCallback) {
-//        pageCallbackMap.put(alias, pageCallback);
-//    }
-//
-//    public void registerSharedParserPredicate(String alias, Predicate<Response> parserPredicate) {
-//        parserPredicateMap.put(alias, parserPredicate);
-//    }
-
-//    public Function<Object, String> getFunction(String key) {
-//        return functionMap.get(key);
-//    }
-
-//    public BiConsumer<Response, Result> getPageCalllback(String key) {
-//        return pageCallbackMap.get(key);
-//    }
-//
-//    public Predicate<Response> getParserPredicate(String key) {
-//        return parserPredicateMap.get(key);
-//    }
-
-    private class InnerList<T> extends ArrayList<T> {
-
     }
 }
