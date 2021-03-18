@@ -41,12 +41,12 @@ public class SqlStartRequests extends StartRequests {
         new DynamicSqlInjector(new RawSqlSelectList()).inspectInject(sqlSessionTemplate.getConfiguration(), new TableInfo(TABLE_NAME));
     }
 
-    public static SqlStartRequestsBuilder builder(String url, StartSql startSql, SqlSessionTemplate sqlSessionTemplate, feign.Request.HttpMethod httpMethod) {
-        return new SqlStartRequestsBuilder(url, startSql, sqlSessionTemplate, httpMethod);
+    public static SqlStartRequestsBuilder builder(String url, StartSql startSql, SqlSessionFactory sqlSessionFactory, feign.Request.HttpMethod httpMethod) {
+        return new SqlStartRequestsBuilder(url, startSql, sqlSessionFactory, httpMethod);
     }
 
-    public static SqlStartRequestsBuilder builder(String url, StartSql startSql, SqlSessionTemplate sqlSessionTemplate) {
-        return new SqlStartRequestsBuilder(url, startSql, sqlSessionTemplate, feign.Request.HttpMethod.GET);
+    public static SqlStartRequestsBuilder builder(String url, StartSql startSql, SqlSessionFactory sqlSessionFactory) {
+        return new SqlStartRequestsBuilder(url, startSql, sqlSessionFactory, feign.Request.HttpMethod.GET);
     }
 
     @Override
