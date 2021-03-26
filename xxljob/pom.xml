@@ -6,7 +6,7 @@
     <parent>
         <groupId>io.github.scrapy4j</groupId>
         <artifactId>scrapy4j-all</artifactId>
-        <version>1.0.0-SNAPSHOT</version>
+        <version>1.0.0</version>
     </parent>
     <artifactId>scrapy4j-xxljob</artifactId>
     <packaging>jar</packaging>
@@ -19,7 +19,7 @@
         <dependency>
             <groupId>io.github.scrapy4j</groupId>
             <artifactId>scrapy4j-core</artifactId>
-            <version>1.0.0-SNAPSHOT</version>
+            <version>${scrapy4j.version}</version>
         </dependency>
         <dependency>
             <groupId>com.xuxueli</groupId>

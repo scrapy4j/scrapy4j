@@ -3,13 +3,15 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>io.github.scrapy4j</groupId>
     <artifactId>scrapy4j-all</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>1.0.0</version>
     <packaging>pom</packaging>
 
     <name>scrapy4j-all</name>
     <description>scrapy4j数据采集工具</description>
+    <url>https://github.com/scrapy4j/scrapy4j</url>
     <organization>
         <name>scrapy4j</name>
+        <url>https://github.com/scrapy4j/scrapy4j</url>
     </organization>
 
     <modules>
@@ -24,6 +26,8 @@
         <java.version>1.8</java.version>
         <!-- 解决pom.xml第一行报Unknown error问题 -->
         <maven-jar-plugin.version>3.1.1</maven-jar-plugin.version>
+
+        <scrapy4j.version>1.0.0</scrapy4j.version>
 
         <!--  依赖包版本 -->
         <spring-context.version>5.2.2.RELEASE</spring-context.version>
@@ -131,17 +135,119 @@
         </dependencies>
     </dependencyManagement>
 
+    <licenses>
+        <license>
+            <name>The Apache Software License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+
+    <developers>
+        <developer>
+            <name>echoes</name>
+            <email>normantriste@gmail.com</email>
+            <organization>scrapy4j</organization>
+            <organizationUrl>https://github.com/scrapy4j</organizationUrl>
+        </developer>
+    </developers>
+
+    <scm>
+        <url>https://github.com/scrapy4j/scrapy4j</url>
+        <connection>scm:git:https://github.com/scrapy4j/scrapy4j.git</connection>
+        <developerConnection>scm:git@github.com:scrapy4j/scrapy4j.git</developerConnection>
+    </scm>
+
     <build>
         <plugins>
+            <!-- doc plugin,Maven API文档生成插件 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>3.1.0</version>
+                <executions>
+                    <execution>
+                        <id>attach-javadocs</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                        <configuration>
+                            <additionalOptions>-Xdoclint:none</additionalOptions>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!-- resources plugin,Maven 资源插件 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>3.1.0</version>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <goals>
+                            <goal>jar-no-fork</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <!-- compiler plugin,Maven 编译插件 -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.1</version>
+                <version>3.3</version>
                 <configuration>
                     <source>${java.version}</source>
                     <target>${java.version}</target>
+                    <showWarnings>true</showWarnings>
                 </configuration>
+            </plugin>
+            <!-- gpg plugin,用于签名认证 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-gpg-plugin</artifactId>
+                <version>1.6</version>
+                <executions>
+                    <execution>
+                        <id>sign-artifacts</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>sign</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <!--staging puglin,用于自动执行发布阶段(免手动)-->
+            <plugin>
+                <groupId>org.sonatype.plugins</groupId>
+                <artifactId>nexus-staging-maven-plugin</artifactId>
+                <version>1.6.7</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <serverId>ossrh</serverId>
+                    <nexusUrl>https://s01.oss.sonatype.org/</nexusUrl>
+                    <autoReleaseAfterClose>true</autoReleaseAfterClose>
+                </configuration>
+            </plugin>
+            <!-- release plugin,用于发布到release仓库部署插件 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-release-plugin</artifactId>
+                <version>2.4.2</version>
             </plugin>
         </plugins>
     </build>
+
+    <distributionManagement>
+        <snapshotRepository>
+            <id>ossrh</id>
+            <url>https://s01.oss.sonatype.org/content/repositories/snapshots</url>
+        </snapshotRepository>
+        <repository>
+            <id>ossrh</id>
+            <url>https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+        </repository>
+    </distributionManagement>
+
 </project>

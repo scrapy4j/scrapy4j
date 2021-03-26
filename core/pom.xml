@@ -7,7 +7,7 @@
     <parent>
         <groupId>io.github.scrapy4j</groupId>
         <artifactId>scrapy4j-all</artifactId>
-        <version>1.0.0-SNAPSHOT</version>
+        <version>1.0.0</version>
     </parent>
     <artifactId>scrapy4j-core</artifactId>
     <packaging>jar</packaging>
